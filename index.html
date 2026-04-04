@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GenAI Engineer Roadmap 2025–26</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #060A10;
+    --bg2: #08101A;
+    --bg3: #0A1525;
+    --bg4: #07101C;
+    --border: #0F1E2D;
+    --border2: #1E2D3D;
+    --text: #CBD5E1;
+    --text2: #94A3B8;
+    --text3: #64748B;
+    --text4: #475569;
+    --text5: #334155;
+    --heading: #F1F5F9;
+  }
+  html, body { height: 100%; }
+  body {
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  ::-webkit-scrollbar { width: 3px; height: 3px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  /* ── Header ── */
+  #header {
+    padding: 22px 32px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    background-image: radial-gradient(circle, #1E2D3D 1px, transparent 1px);
+    background-size: 24px 24px;
+    flex-shrink: 0;
+  }
+  #header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(18px, 2.5vw, 28px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--heading);
+    line-height: 1.2;
+  }
+  #header h1 span { color: var(--active-color, #38BDF8); }
+  #header p { font-size: 10px; letter-spacing: 3px; color: var(--text5); margin-top: 5px; text-transform: uppercase; }
+  .view-tabs { display: flex; gap: 3px; background: #0A1525; padding: 3px; border-radius: 7px; border: 1px solid var(--border); align-self: flex-start; }
+  .view-tab {
+    cursor: pointer; padding: 7px 16px; font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; border-radius: 4px; border: none; background: transparent;
+    color: var(--text4); font-family: 'IBM Plex Mono', monospace; transition: all .2s;
+  }
+  .view-tab.active { color: #060A10; background: var(--active-color, #38BDF8); }
+
+  /* ── Layout ── */
+  #app { flex: 1; display: flex; overflow: hidden; }
+
+  /* ── Sidebar ── */
+  #sidebar {
+    width: 210px; flex-shrink: 0; overflow-y: auto;
+    background: var(--bg2); border-right: 1px solid var(--border);
+    padding: 14px 10px;
+  }
+  .phase-pill {
+    padding: 9px 10px; border-radius: 6px; margin-bottom: 3px;
+    cursor: pointer; transition: all .2s; border: 1px solid transparent;
+    opacity: 0.45;
+  }
+  .phase-pill:hover { opacity: 0.75; }
+  .phase-pill.active { opacity: 1; }
+  .phase-pill-inner { display: flex; align-items: center; gap: 8px; }
+  .phase-icon { font-size: 13px; flex-shrink: 0; }
+  .phase-num { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1px; }
+  .phase-name { font-size: 10px; font-weight: 500; color: var(--text3); }
+  .phase-pill.active .phase-name { color: var(--heading); }
+
+  /* ── Content area ── */
+  #content-wrap { flex: 1; display: flex; overflow: hidden; }
+
+  /* ── Topics panel ── */
+  #topics {
+    flex: 1; overflow-y: auto; padding: 24px 28px;
+    animation: fadeIn .3s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  .phase-header { margin-bottom: 20px; }
+  .phase-header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .phase-big-icon { font-size: 18px; }
+  .phase-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(15px, 2vw, 20px); font-weight: 700; color: var(--heading); }
+  .phase-sub { font-size: 11px; color: var(--text4); margin-top: 2px; }
+  .phase-divider { height: 2px; border-radius: 1px; margin-top: 10px; }
+
+  .sections-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
+  .section-card {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px;
+  }
+  .section-title { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; margin-bottom: 10px; }
+  .topic-item { display: flex; gap: 7px; padding: 4px 0; font-size: 11px; color: var(--text2); line-height: 1.5; }
+  .topic-item:not(:last-child) { border-bottom: 1px solid var(--border); }
+  .topic-arrow { flex-shrink: 0; opacity: 0.65; font-style: normal; }
+
+  /* ── Tools panel ── */
+  #tools-panel {
+    width: 230px; flex-shrink: 0; overflow-y: auto;
+    padding: 24px 18px; background: var(--bg4);
+    border-left: 1px solid var(--border);
+  }
+  .panel-label { font-size: 9px; letter-spacing: 3px; color: var(--text5); text-transform: uppercase; margin-bottom: 14px; }
+  .tool-card {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 6px; padding: 11px 13px; margin-bottom: 7px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .tool-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,.4); }
+  .tool-name { font-size: 12px; color: #E2E8F0; margin-bottom: 3px; }
+  .tool-tag { font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; opacity: .65; }
+
+  .phase-stats {
+    border-radius: 8px; padding: 13px; margin-top: 18px;
+  }
+  .stats-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 7px; font-weight: 500; }
+  .stats-val { font-size: 10px; color: var(--text3); line-height: 1.9; }
+
+  .jump-label { font-size: 9px; letter-spacing: 2px; color: #1E2D3D; text-transform: uppercase; margin-bottom: 9px; margin-top: 18px; }
+  .jump-item { display: flex; align-items: center; gap: 6px; padding: 3px 0; cursor: pointer; opacity: .35; transition: opacity .2s; }
+  .jump-item:hover { opacity: .65; }
+  .jump-item.active { opacity: 1; }
+  .jump-bar { width: 14px; height: 2px; border-radius: 1px; flex-shrink: 0; }
+  .jump-text { font-size: 9px; color: var(--text4); }
+  .jump-item.active .jump-text { color: inherit; }
+
+  /* ── All Tools view ── */
+  #all-tools-view { display: none; overflow-y: auto; padding: 28px 32px; flex: 1; }
+  #all-tools-view.visible { display: block; }
+  .all-tools-header { margin-bottom: 24px; }
+  .all-tools-title { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
+  .all-tools-sub { font-size: 10px; letter-spacing: 2px; color: var(--text5); text-transform: uppercase; }
+  .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 18px; }
+  .tools-group-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 18px; }
+  .tools-group-title { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; margin-bottom: 12px; }
+  .chip-wrap { display: flex; flex-wrap: wrap; gap: 5px; }
+  .chip {
+    border-radius: 4px; padding: 3px 9px; font-size: 10px; color: var(--text2);
+  }
+  .spotlight-section {
+    margin-top: 28px; background: var(--bg3);
+    border: 1px solid #1E3A5F; border-radius: 10px; padding: 22px;
+  }
+  .spotlight-title { font-size: 9px; letter-spacing: 3px; color: #38BDF8; text-transform: uppercase; margin-bottom: 14px; }
+  .spotlight-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 9px; }
+  .spotlight-card { background: var(--bg); border: 1px solid #1E3A5F; border-radius: 6px; padding: 11px 13px; }
+  .spotlight-name { font-size: 12px; color: #38BDF8; margin-bottom: 2px; }
+  .spotlight-desc { font-size: 10px; color: var(--text4); }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    #sidebar { width: 52px; }
+    .phase-name, .phase-num { display: none; }
+    #tools-panel { width: 180px; }
+    body { overflow: auto; }
+    #app { flex-direction: column; overflow: auto; height: auto; }
+    #content-wrap { flex-direction: column; overflow: visible; }
+    #topics { overflow: visible; }
+    #tools-panel { width: 100%; border-left: none; border-top: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div id="header">
+  <div>
+    <h1>GenAI Engineer <span>·</span> Full Roadmap</h1>
+    <p>3+ years experience &nbsp;·&nbsp; 9 phases &nbsp;·&nbsp; 36 topics &nbsp;·&nbsp; 60+ tools</p>
+  </div>
+  <div class="view-tabs">
+    <button class="view-tab active" onclick="setView('roadmap')">⬡ Roadmap</button>
+    <button class="view-tab" onclick="setView('tools')">◈ All Tools</button>
+  </div>
+</div>
+
+<div id="app">
+
+  <!-- Sidebar -->
+  <div id="sidebar"></div>
+
+  <!-- Roadmap content -->
+  <div id="content-wrap">
+    <div id="topics"></div>
+    <div id="tools-panel"></div>
+  </div>
+
+  <!-- All Tools view -->
+  <div id="all-tools-view"></div>
+
+</div>
+
+<script>
+const roadmap = [
+  {
+    id:"llm-core", phase:"01", title:"LLM Core Concepts",
+    subtitle:"What every serious GenAI engineer must deeply understand",
+    color:"#38BDF8", icon:"⬡",
+    sections:[
+      { title:"Transformer Architecture", items:[
+        "Self-attention mechanism, multi-head attention, scaled dot-product",
+        "Positional encodings: absolute, RoPE, ALiBi",
+        "Feed-forward layers, residual connections, layer norm",
+        "Encoder-only (BERT), decoder-only (GPT), encoder-decoder (T5)",
+        "KV-Cache internals and memory implications",
+        "Flash Attention 1/2/3 — memory-efficient attention",
+        "Grouped Query Attention (GQA) and Multi-Query Attention (MQA)"
+      ]},
+      { title:"Context Window & Memory", items:[
+        "Context window limits: how tokens are counted and what fits",
+        "Lost-in-the-middle problem — attention degradation at center",
+        "Long-context models: Gemini 1.5 (1M), Claude 3.5 (200K), GPT-4o (128K)",
+        "Context compression: summarization, selective memory, forgetting strategies",
+        "Sliding window attention and sparse attention patterns",
+        "In-context learning vs fine-tuning — when to use which",
+        "Needle-in-a-haystack evaluations and context faithfulness"
+      ]},
+      { title:"Tokenization", items:[
+        "BPE, WordPiece, SentencePiece, Unigram LM",
+        "Tiktoken (OpenAI), tokenizer quirks across models",
+        "Token efficiency: how language choice affects cost",
+        "Special tokens: BOS, EOS, PAD, SEP and their roles",
+        "Multimodal tokens: image patch tokens, audio frames"
+      ]},
+      { title:"Model Families & Selection", items:[
+        "OpenAI: GPT-4o, o1, o3, o4-mini — reasoning vs speed",
+        "Anthropic: Claude 3.5 Sonnet/Haiku/Opus, extended thinking",
+        "Google: Gemini 2.0 Flash/Pro, Gemma 3",
+        "Meta: Llama 3.1/3.3, Code Llama",
+        "Mistral, Qwen 2.5, DeepSeek R1/V3, Phi-4",
+        "Mixture-of-Experts (MoE): Mixtral, Grok, DeepSeek MoE",
+        "Small Language Models (SLMs) for edge/on-device"
+      ]}
+    ],
+    tools:[
+      {name:"OpenAI Playground",tag:"Experimentation"},
+      {name:"Google AI Studio",tag:"Gemini Testing"},
+      {name:"Anthropic Console",tag:"Claude Testing"},
+      {name:"LM Studio",tag:"Local Models"},
+      {name:"Ollama",tag:"Local Inference"},
+      {name:"Hugging Face Hub",tag:"Model Registry"},
+      {name:"Together AI",tag:"OSS Hosting"}
+    ]
+  },
+  {
+    id:"prompt-eng", phase:"02", title:"Prompt Engineering",
+    subtitle:"The craft of communicating with language models",
+    color:"#F472B6", icon:"◈",
+    sections:[
+      { title:"Core Prompting Techniques", items:[
+        "Zero-shot, one-shot, few-shot prompting strategies",
+        "Chain-of-Thought (CoT): standard, zero-shot CoT, auto-CoT",
+        "Tree-of-Thought (ToT) and Graph-of-Thought",
+        "Self-consistency: multiple chain sampling + majority vote",
+        "ReAct: Reasoning + Acting in interleaved steps",
+        "Least-to-most prompting for decomposition",
+        "Step-back prompting for abstract reasoning"
+      ]},
+      { title:"System Prompts & Personas", items:[
+        "System prompt design: roles, constraints, output format",
+        "Persona engineering and character consistency",
+        "Negative constraints vs positive instructions — which works better",
+        "XML tags and structured delimiters for clarity",
+        "Multi-turn conversation management and state injection",
+        "Constitutional AI principles in system prompts",
+        "Prompt templates: Jinja2, Mustache, F-strings"
+      ]},
+      { title:"Output Control & Structured Generation", items:[
+        "JSON mode and function calling for structured output",
+        "Constrained decoding with grammars (GBNF, Guidance, Outlines)",
+        "Pydantic models as output schemas",
+        "Markdown, XML, YAML output formats and parsing",
+        "Streaming responses and partial JSON handling",
+        "Temperature, top-p, top-k, frequency/presence penalty tuning",
+        "Logit biasing for controlled token generation"
+      ]},
+      { title:"Advanced & Meta-Prompting", items:[
+        "Prompt injection attacks: direct and indirect",
+        "Prompt hardening: sandboxing, delimiters, instruction hierarchy",
+        "Meta-prompting: LLM generates and refines its own prompts",
+        "Automatic Prompt Engineer (APE) and DSPy optimization",
+        "Prompt versioning and A/B testing strategies",
+        "Multimodal prompts: interleaving text, images, audio",
+        "Prompt compression: LLMLingua, Selective Context"
+      ]}
+    ],
+    tools:[
+      {name:"PromptLayer",tag:"Prompt Management"},
+      {name:"Langfuse Prompts",tag:"Versioning"},
+      {name:"DSPy",tag:"Auto-Optimization"},
+      {name:"Guidance AI",tag:"Constrained Gen"},
+      {name:"Outlines",tag:"Structured Output"},
+      {name:"Helicone",tag:"Prompt Analytics"},
+      {name:"PromptHub",tag:"Collaboration"}
+    ]
+  },
+  {
+    id:"rag", phase:"03", title:"RAG & Knowledge Systems",
+    subtitle:"Ground LLMs in real, retrievable knowledge",
+    color:"#FB923C", icon:"◉",
+    sections:[
+      { title:"Retrieval Fundamentals", items:[
+        "Embedding models: text-embedding-3, Cohere Embed v3, BGE, E5",
+        "Dense retrieval: cosine similarity, dot product, L2 distance",
+        "Sparse retrieval: BM25, TF-IDF, SPLADE",
+        "Hybrid search: reciprocal rank fusion (RRF), weighted combination",
+        "Approximate Nearest Neighbor (ANN): HNSW, IVF, PQ",
+        "Matryoshka Representation Learning (MRL) for adaptive embeddings",
+        "Late interaction: ColBERT, ColPali for document retrieval"
+      ]},
+      { title:"Chunking & Indexing", items:[
+        "Fixed-size chunking with overlap — baseline approach",
+        "Semantic chunking: split on meaning boundaries",
+        "Recursive character text splitter",
+        "Hierarchical chunking: parent-child document retrieval",
+        "Proposition-based indexing: atomic facts from paragraphs",
+        "Document parsing: PDFs, tables, charts (Unstructured, Docling)",
+        "Multimodal indexing: image embeddings, ColPali, vision encoders"
+      ]},
+      { title:"Advanced RAG Patterns", items:[
+        "HyDE: Hypothetical Document Embeddings for query expansion",
+        "RAG-Fusion: multi-query + reciprocal rank fusion",
+        "RAPTOR: recursive abstractive tree retrieval",
+        "GraphRAG (Microsoft): community summaries + graph traversal",
+        "Agentic RAG: iterative retrieval with reflection and re-querying",
+        "Corrective RAG (CRAG): query reformulation on low-confidence retrieval",
+        "Self-RAG: on-demand retrieval with critique tokens"
+      ]},
+      { title:"Vector Stores & Knowledge Graphs", items:[
+        "Pinecone, Qdrant, Weaviate, Milvus, Chroma — trade-off matrix",
+        "pgvector for Postgres-native vector storage",
+        "Redis Vector, Elasticsearch with k-NN search",
+        "Neo4j + LLM for Knowledge Graph RAG",
+        "LlamaIndex PropertyGraph for hybrid KG-vector retrieval",
+        "RAG evaluation: RAGAS metrics — faithfulness, answer relevancy, context precision",
+        "Embedding fine-tuning for domain-specific retrieval"
+      ]}
+    ],
+    tools:[
+      {name:"LlamaIndex",tag:"RAG Framework"},
+      {name:"LangChain",tag:"RAG Chains"},
+      {name:"Qdrant",tag:"Vector DB"},
+      {name:"Weaviate",tag:"Vector DB"},
+      {name:"Cohere Rerank",tag:"Re-ranking"},
+      {name:"Unstructured.io",tag:"Doc Parsing"},
+      {name:"RAGAS",tag:"Evaluation"}
+    ]
+  },
+  {
+    id:"agents", phase:"04", title:"Agents & Multi-Agent Systems",
+    subtitle:"LLMs that plan, act, delegate, and collaborate",
+    color:"#A78BFA", icon:"⬟",
+    sections:[
+      { title:"Agent Architectures", items:[
+        "ReAct (Reason + Act): thought-action-observation loops",
+        "Plan-and-Execute: global plan, step-by-step execution",
+        "Reflexion: self-evaluation and verbal reinforcement",
+        "LATS: Language Agent Tree Search with MCTS",
+        "Voyager-style lifelong learning agents",
+        "CodeAct: Python as action space for general agents",
+        "Memory types: in-context, episodic (Mem0), semantic, procedural"
+      ]},
+      { title:"Multi-Agent Frameworks", items:[
+        "Orchestrator-Worker pattern: central coordinator + specialists",
+        "Supervisor agent with dynamic task routing",
+        "Peer-to-peer agent mesh / swarm intelligence",
+        "Role-based multi-agent: CrewAI Crew + Tasks + Agents",
+        "Conversational multi-agent: AutoGen GroupChat and AssistantAgent",
+        "Agent handoffs: passing context between agents cleanly",
+        "Parallelism: fan-out tasks across concurrent subagents"
+      ]},
+      { title:"A2A Protocol (Agent-to-Agent)", items:[
+        "Google A2A Protocol: standardized agent communication spec",
+        "AgentCard: agent capability discovery and metadata",
+        "Task lifecycle: submitted → working → completed/failed",
+        "Push notifications and SSE streaming for long-running tasks",
+        "Multi-turn interactions and context passing between agents",
+        "A2A vs MCP: complementary roles (agent comm vs tool access)",
+        "Building A2A-compliant agents with FastAPI + JSON-RPC"
+      ]},
+      { title:"Frameworks Deep Dive", items:[
+        "LangGraph: stateful DAG-based agent workflows with persistence",
+        "CrewAI: role-based multi-agent with process types (sequential/hierarchical)",
+        "AutoGen v0.4: event-driven, actor-model multi-agent",
+        "Pydantic AI: type-safe, structured agent outputs with dependency injection",
+        "Agno (ex-Phidata): lightweight, model-agnostic agent framework",
+        "Semantic Kernel: enterprise .NET/Python agent framework from Microsoft",
+        "Amazon Bedrock Agents: managed agent runtime on AWS"
+      ]}
+    ],
+    tools:[
+      {name:"LangGraph",tag:"Stateful Agents"},
+      {name:"CrewAI",tag:"Multi-Agent"},
+      {name:"AutoGen v0.4",tag:"Multi-Agent"},
+      {name:"Pydantic AI",tag:"Structured"},
+      {name:"Agno (Phidata)",tag:"Lightweight"},
+      {name:"Semantic Kernel",tag:"Enterprise"},
+      {name:"E2B Sandbox",tag:"Code Execution"}
+    ]
+  },
+  {
+    id:"mcp", phase:"05", title:"MCP & Tool Ecosystems",
+    subtitle:"Connect LLMs to the real world via standardized protocols",
+    color:"#34D399", icon:"◬",
+    sections:[
+      { title:"Model Context Protocol (MCP)", items:[
+        "MCP architecture: hosts, clients, servers — how they communicate",
+        "MCP primitives: Tools, Resources, Prompts, Sampling",
+        "Transport layers: stdio (local), SSE + HTTP (remote)",
+        "Building an MCP server in Python with mcp SDK",
+        "Building an MCP server in TypeScript with @modelcontextprotocol/sdk",
+        "MCP server registry: filesystem, GitHub, Slack, Postgres, Brave Search",
+        "MCP in Claude Desktop, Cursor IDE, Windsurf — practical setup"
+      ]},
+      { title:"Tool Design Patterns", items:[
+        "Writing high-quality tool schemas: names, descriptions, parameters",
+        "Tool selection: how LLMs decide which tool to call",
+        "Parallel tool calls: handling multiple simultaneous invocations",
+        "Tool call chaining and sequential tool pipelines",
+        "Error handling and retry logic for tool failures",
+        "Tool call validation: schema enforcement, pre/post hooks",
+        "Rate limiting and cost management for external API tools"
+      ]},
+      { title:"Integration Platforms", items:[
+        "Zapier AI Actions: expose Zapier automations as LLM tools",
+        "N8N: self-hosted workflow automation with AI nodes",
+        "Make (Integromat): visual workflow builder with LLM steps",
+        "Activepieces: open-source Zapier alternative",
+        "Pipedream: code-first workflow automation",
+        "Connecting CRMs, ERPs, databases via iPaaS + LLMs",
+        "Webhook-based tool endpoints and security best practices"
+      ]},
+      { title:"Browser & Computer Use", items:[
+        "Anthropic Computer Use (Claude 3.5): screenshot + action loop",
+        "Operator (OpenAI): web agent with browser control",
+        "Playwright + LLM for deterministic browser automation",
+        "Stagehand: LLM-native browser automation framework",
+        "Skyvern: visual scraping and form-filling with vision LLMs",
+        "Desktop automation: PyAutoGUI, keyboard, screen capture",
+        "Security considerations for computer use agents"
+      ]}
+    ],
+    tools:[
+      {name:"MCP Python SDK",tag:"MCP Server"},
+      {name:"Zapier AI Actions",tag:"No-Code Tools"},
+      {name:"N8N",tag:"Workflow Automation"},
+      {name:"Make (Integromat)",tag:"Automation"},
+      {name:"Stagehand",tag:"Browser Agent"},
+      {name:"Skyvern",tag:"Web Automation"},
+      {name:"Activepieces",tag:"OSS Automation"}
+    ]
+  },
+  {
+    id:"workflows", phase:"06", title:"AI Workflow Builders",
+    subtitle:"Visual, low-code, and no-code GenAI pipelines",
+    color:"#FBBF24", icon:"⬡",
+    sections:[
+      { title:"Visual AI Pipeline Platforms", items:[
+        "Flowise: open-source LangChain drag-and-drop builder",
+        "Langflow: visual LangChain/LlamaIndex workflow IDE",
+        "Dify: LLMOps platform — apps, datasets, APIs, monitoring",
+        "Coze (ByteDance): bot builder with plugins, memory, scheduling",
+        "Voiceflow: conversational AI flows for voice + chat",
+        "Botpress: enterprise chatbot builder with NLU + GenAI",
+        "StackAI: no-code AI workflow builder for enterprise"
+      ]},
+      { title:"Automation & Integration Tools", items:[
+        "N8N AI nodes: LangChain agent, summarize, information extractor",
+        "Zapier Central: AI agents that run automations naturally",
+        "Relay.app: human-in-the-loop AI workflow automation",
+        "Lindy AI: personal AI agents connected to apps",
+        "Taskade: AI project management + agent workflows",
+        "Gumloop: visual AI automation with web scraping",
+        "Keyflow AI: building AI workflows visually with loops"
+      ]},
+      { title:"Agent Simulation & Testing", items:[
+        "Sim Studio (sim.ai): visual multi-agent simulation sandbox",
+        "AgentBench: standardized agent evaluation benchmarks",
+        "WebArena / VisualWebArena: web agent evaluation environments",
+        "OSWorld: computer use agent evaluation",
+        "TaskBench: multi-step task completion evaluation",
+        "Building custom agent evals with LangSmith datasets",
+        "Red-teaming agents: adversarial task injection testing"
+      ]},
+      { title:"Google Ecosystem", items:[
+        "Google AI Studio: Gemini prototyping, system instructions, grounding",
+        "Vertex AI Agent Builder: managed RAG + agent on GCP",
+        "Vertex AI Pipelines: MLOps orchestration for GenAI",
+        "NotebookLM: knowledge-grounded AI notebook (study it as UX model)",
+        "Gemini API: code execution, grounding with Google Search",
+        "Firebase Genkit: TypeScript GenAI framework by Google",
+        "Agent Development Kit (ADK): Google's multi-agent SDK"
+      ]}
+    ],
+    tools:[
+      {name:"Flowise",tag:"Visual Builder"},
+      {name:"Dify",tag:"LLMOps"},
+      {name:"Langflow",tag:"Visual Builder"},
+      {name:"Sim Studio",tag:"Agent Simulation"},
+      {name:"Google AI Studio",tag:"Gemini IDE"},
+      {name:"Coze",tag:"Bot Builder"},
+      {name:"Voiceflow",tag:"Conversational AI"}
+    ]
+  },
+  {
+    id:"finetuning", phase:"07", title:"Fine-tuning & Alignment",
+    subtitle:"Adapt models to your domain and values",
+    color:"#F87171", icon:"◈",
+    sections:[
+      { title:"Parameter-Efficient Fine-Tuning (PEFT)", items:[
+        "LoRA: low-rank decomposition of weight matrices",
+        "QLoRA: 4-bit quantized base model + LoRA adapters",
+        "IA³, Prefix Tuning, Prompt Tuning — lighter alternatives",
+        "DoRA: weight-decomposed LoRA for better accuracy",
+        "LongLoRA: extending context length via fine-tuning",
+        "LoRA rank, alpha, target modules — hyperparameter tuning",
+        "Merging LoRA adapters: TIES, DARE, SLERP techniques"
+      ]},
+      { title:"Instruction Tuning & Alignment", items:[
+        "Supervised Fine-Tuning (SFT) on instruction-response pairs",
+        "RLHF: reward model training + PPO optimization",
+        "DPO: Direct Preference Optimization (no reward model needed)",
+        "ORPO, SimPO, IPO — DPO variants",
+        "GRPO: Group Relative Policy Optimization (DeepSeek R1 method)",
+        "Constitutional AI: critique + revision via AI feedback",
+        "Synthetic data generation: self-instruct, Alpaca, Evol-Instruct"
+      ]},
+      { title:"Training Infrastructure", items:[
+        "Unsloth: 2x faster, 70% less memory fine-tuning",
+        "TRL (Transformer Reinforcement Learning) by Hugging Face",
+        "Axolotl: flexible config-driven fine-tuning framework",
+        "DeepSpeed ZeRO 1/2/3 for multi-GPU training",
+        "FSDP (Fully Sharded Data Parallel) with PyTorch",
+        "Gradient checkpointing, mixed precision (bf16/fp16)",
+        "Cloud training: RunPod, Lambda Labs, Vast.ai, Modal"
+      ]},
+      { title:"Evaluation & Dataset Curation", items:[
+        "Benchmark suites: MMLU, HellaSwag, HumanEval, GSM8K, MATH",
+        "LLM-as-judge evaluation with GPT-4o / Claude",
+        "MT-Bench, AlpacaEval, Arena-Hard for chat model quality",
+        "Dataset curation: deduplication, quality filtering, diversity sampling",
+        "Argilla / Label Studio for human annotation pipelines",
+        "Generating synthetic evals from golden datasets",
+        "Catastrophic forgetting — detection and mitigation"
+      ]}
+    ],
+    tools:[
+      {name:"Unsloth",tag:"Fast Fine-tuning"},
+      {name:"Axolotl",tag:"Fine-tuning"},
+      {name:"TRL (HuggingFace)",tag:"RLHF / DPO"},
+      {name:"W&B / MLflow",tag:"Experiment Tracking"},
+      {name:"Argilla",tag:"Data Annotation"},
+      {name:"Modal",tag:"Cloud Training"},
+      {name:"RunPod",tag:"GPU Rental"}
+    ]
+  },
+  {
+    id:"production", phase:"08", title:"Production & LLMOps",
+    subtitle:"Reliable, observable, cost-efficient GenAI systems",
+    color:"#60A5FA", icon:"⬡",
+    sections:[
+      { title:"Inference & Serving", items:[
+        "vLLM: PagedAttention, continuous batching for high throughput",
+        "TGI (Text Generation Inference) by Hugging Face",
+        "Triton Inference Server for multi-model serving",
+        "BentoML / Ray Serve for scalable LLM APIs",
+        "Quantization: GPTQ, AWQ, GGUF, FP8 — quality vs speed",
+        "Speculative decoding with draft models for latency reduction",
+        "Prefix caching, prompt caching (Anthropic/OpenAI) for cost savings"
+      ]},
+      { title:"Observability & Tracing", items:[
+        "LangSmith: full tracing of LangChain / LangGraph runs",
+        "Langfuse: open-source LLM observability (self-hostable)",
+        "Arize Phoenix: trace explorer + evals + dataset management",
+        "OpenTelemetry for LLMs: OTLP traces across stacks",
+        "Helicone: LLM proxy with logging, analytics, caching",
+        "Token cost tracking, latency percentiles (p50/p95/p99)",
+        "Anomaly detection: prompt drift, output degradation alerts"
+      ]},
+      { title:"Evaluation Pipelines", items:[
+        "LLM-as-judge: correctness, faithfulness, tone, safety",
+        "Regression test suites on prompt or model changes",
+        "CI/CD for prompts: automated eval on every prompt version",
+        "Golden dataset management and versioning",
+        "Pairwise evaluation for model comparison",
+        "Human-in-the-loop spot checks + labeling queues",
+        "RAGAS for RAG-specific pipeline evaluation"
+      ]},
+      { title:"Security, Safety & Governance", items:[
+        "Prompt injection: direct and indirect attack patterns",
+        "Input/output guardrails: NeMo Guardrails, Guardrails AI",
+        "PII detection and redaction (Presidio, GLiNER)",
+        "Jailbreak detection with classifiers or LLM judges",
+        "Rate limiting, abuse detection, cost budget controls",
+        "AI governance: model cards, data lineage, GDPR/HIPAA compliance",
+        "Red-teaming: adversarial probing with Garak, PyRIT"
+      ]}
+    ],
+    tools:[
+      {name:"LangSmith",tag:"Tracing"},
+      {name:"Langfuse",tag:"OSS Observability"},
+      {name:"Arize Phoenix",tag:"Evals"},
+      {name:"vLLM",tag:"Inference"},
+      {name:"NeMo Guardrails",tag:"Safety"},
+      {name:"Helicone",tag:"LLM Proxy"},
+      {name:"Garak",tag:"Red-teaming"}
+    ]
+  },
+  {
+    id:"multimodal", phase:"09", title:"Multimodal & Frontier",
+    subtitle:"Beyond text — audio, vision, video, and what's next",
+    color:"#E879F9", icon:"◉",
+    sections:[
+      { title:"Vision & Document AI", items:[
+        "Vision-Language Models: GPT-4o, Claude Vision, Gemini Vision",
+        "Document understanding: LayoutLM, Donut, GOT-OCR 2.0",
+        "ColPali: vision-based document retrieval with PaliGemma",
+        "Chart/table understanding: ChartQA, TableBench",
+        "Image generation: FLUX.1, SDXL, DALL-E 3, Ideogram",
+        "Multimodal RAG: CLIP embeddings + text retrieval fusion",
+        "Video understanding: Gemini 1.5 video, Qwen2-VL"
+      ]},
+      { title:"Audio & Voice Agents", items:[
+        "Speech-to-text: Whisper v3, Deepgram, AssemblyAI",
+        "Text-to-speech: ElevenLabs, Cartesia Sonic, PlayHT, Kokoro",
+        "Real-time voice agents: OpenAI Realtime API (WebRTC)",
+        "Voice agent frameworks: Vapi, LiveKit Agents, Bland AI",
+        "Speaker diarization and multi-speaker handling",
+        "Emotion detection and tone analysis in audio",
+        "End-to-end speech LLMs: Moshi, Llama Omni"
+      ]},
+      { title:"Reasoning Models & Thinking", items:[
+        "OpenAI o1/o3/o4-mini: test-time compute scaling",
+        "DeepSeek R1: open-source reasoning with GRPO training",
+        "Anthropic Extended Thinking (Claude 3.7)",
+        "Process Reward Models (PRM) vs Outcome Reward Models (ORM)",
+        "Monte Carlo Tree Search (MCTS) for planning agents",
+        "Self-play and synthetic reasoning trace generation",
+        "When to use reasoning models vs standard LLMs (cost vs accuracy)"
+      ]},
+      { title:"Emerging Paradigms", items:[
+        "Agentic AI: persistent agents, background jobs, scheduling",
+        "AI software engineers: Devin, SWE-agent, OpenHands",
+        "Personal AI / AI companions with long-term memory (MemGPT)",
+        "Generative UI: AI-generated React components on the fly",
+        "World models for planning and simulation",
+        "AI-native apps: rethinking UX without traditional UI patterns",
+        "Edge / on-device AI: Phi-4, Gemma 3, Apple MLX"
+      ]}
+    ],
+    tools:[
+      {name:"ElevenLabs",tag:"Voice AI"},
+      {name:"Vapi",tag:"Voice Agents"},
+      {name:"Whisper / Deepgram",tag:"STT"},
+      {name:"FLUX.1 / ComfyUI",tag:"Image Gen"},
+      {name:"LiveKit Agents",tag:"Realtime Voice"},
+      {name:"Replicate",tag:"Model Hosting"},
+      {name:"fal.ai",tag:"Fast Inference"}
+    ]
+  }
+];
+
+const allToolGroups = [
+  { group:"Agent Frameworks", tools:["LangGraph","CrewAI","AutoGen v0.4","Pydantic AI","Agno","Semantic Kernel","Haystack"] },
+  { group:"Visual Builders", tools:["Flowise","Langflow","Dify","Coze","Voiceflow","StackAI","Botpress"] },
+  { group:"Automation", tools:["N8N","Zapier","Make (Integromat)","Relay.app","Activepieces","Pipedream","Lindy"] },
+  { group:"Simulation & Testing", tools:["Sim Studio","AgentBench","WebArena","OSWorld","Garak","PyRIT"] },
+  { group:"Cloud & IDEs", tools:["Google AI Studio","Vertex AI","AWS Bedrock","Azure AI","Firebase Genkit","Modal","Replicate"] },
+  { group:"Observability", tools:["LangSmith","Langfuse","Arize Phoenix","Helicone","Weights & Biases","Braintrust"] },
+  { group:"Vector & RAG", tools:["Qdrant","Weaviate","Pinecone","pgvector","Chroma","LlamaIndex","RAGAS"] },
+  { group:"Fine-tuning", tools:["Unsloth","Axolotl","TRL","LM Studio","Ollama","RunPod","Together AI"] },
+  { group:"Voice & Multimodal", tools:["ElevenLabs","Vapi","LiveKit","Deepgram","fal.ai","ComfyUI","Replicate"] }
+];
+
+const spotlightTools = [
+  {name:"Zapier AI",desc:"No-code LLM automations"},
+  {name:"N8N",desc:"Self-hosted workflow AI"},
+  {name:"Sim Studio",desc:"Multi-agent sandbox"},
+  {name:"Google AI Studio",desc:"Gemini rapid prototyping"},
+  {name:"CrewAI",desc:"Role-based multi-agent"},
+  {name:"AutoGen v0.4",desc:"Conversational agents"},
+  {name:"Dify",desc:"Full LLMOps platform"},
+  {name:"Flowise",desc:"Visual chain builder"},
+  {name:"Langfuse",desc:"OSS LLM observability"},
+  {name:"Vapi",desc:"Voice agent platform"},
+  {name:"LangGraph",desc:"Stateful agent DAGs"},
+  {name:"Pydantic AI",desc:"Type-safe agents"}
+];
+
+let activePhaseId = "llm-core";
+let currentView = "roadmap";
+
+function getPhase(id) { return roadmap.find(p => p.id === id); }
+
+function setActiveColor(color) {
+  document.documentElement.style.setProperty('--active-color', color);
+  document.querySelector('#header h1 span').style.color = color;
+}
+
+function renderSidebar() {
+  const sb = document.getElementById('sidebar');
+  sb.innerHTML = roadmap.map(p => `
+    <div class="phase-pill ${p.id===activePhaseId?'active':''}"
+         style="${p.id===activePhaseId?`background:${p.color}18;border-color:${p.color}40`:''}"
+         onclick="selectPhase('${p.id}')">
+      <div class="phase-pill-inner">
+        <span class="phase-icon" style="color:${p.color}">${p.icon}</span>
+        <div>
+          <div class="phase-num" style="color:${p.color}">PHASE ${p.phase}</div>
+          <div class="phase-name">${p.title}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderTopics() {
+  const p = getPhase(activePhaseId);
+  const el = document.getElementById('topics');
+  el.innerHTML = `
+    <div class="phase-header">
+      <div class="phase-header-top">
+        <span class="phase-big-icon">${p.icon}</span>
+        <div>
+          <div class="phase-title">${p.title}</div>
+          <div class="phase-sub">${p.subtitle}</div>
+        </div>
+      </div>
+      <div class="phase-divider" style="background:linear-gradient(90deg,${p.color},transparent)"></div>
+    </div>
+    <div class="sections-grid">
+      ${p.sections.map(sec => `
+        <div class="section-card" style="border-top:2px solid ${p.color}60">
+          <div class="section-title" style="color:${p.color}">${sec.title}</div>
+          ${sec.items.map((item,i) => `
+            <div class="topic-item" style="${i<sec.items.length-1?'border-bottom:1px solid #0F1E2D':''}">
+              <em class="topic-arrow" style="color:${p.color}">›</em>
+              ${item}
+            </div>`).join('')}
+        </div>`).join('')}
+    </div>`;
+  // re-trigger animation
+  el.style.animation = 'none';
+  el.offsetHeight;
+  el.style.animation = 'fadeIn .3s ease';
+}
+
+function renderToolsPanel() {
+  const p = getPhase(activePhaseId);
+  const el = document.getElementById('tools-panel');
+  const totalTopics = p.sections.reduce((a,s) => a+s.items.length, 0);
+  el.innerHTML = `
+    <div class="panel-label">Key Tools</div>
+    ${p.tools.map(t => `
+      <div class="tool-card" style="border-left:3px solid ${p.color}">
+        <div class="tool-name">${t.name}</div>
+        <div class="tool-tag" style="color:${p.color}">${t.tag}</div>
+      </div>`).join('')}
+    <div class="phase-stats" style="background:${p.color}0F;border:1px solid ${p.color}25">
+      <div class="stats-label" style="color:${p.color}">Phase Stats</div>
+      <div class="stats-val">
+        <div>${totalTopics} topics</div>
+        <div>${p.sections.length} categories</div>
+        <div>${p.tools.length} key tools</div>
+      </div>
+    </div>
+    <div class="jump-label">Jump to</div>
+    ${roadmap.map(r => `
+      <div class="jump-item ${r.id===activePhaseId?'active':''}" onclick="selectPhase('${r.id}')"
+           style="${r.id===activePhaseId?`color:${r.color}`:''}">
+        <div class="jump-bar" style="background:${r.color}"></div>
+        <span class="jump-text">${r.title}</span>
+      </div>`).join('')}`;
+}
+
+function renderAllTools() {
+  const el = document.getElementById('all-tools-view');
+  el.innerHTML = `
+    <div class="all-tools-header">
+      <div class="all-tools-title">Complete Tool Arsenal</div>
+      <div class="all-tools-sub">Every tool a GenAI Engineer needs to know</div>
+    </div>
+    <div class="tools-grid">
+      ${allToolGroups.map((g,gi) => {
+        const color = roadmap[gi % roadmap.length].color;
+        return `
+          <div class="tools-group-card" style="border-top:2px solid ${color}">
+            <div class="tools-group-title" style="color:${color}">${g.group}</div>
+            <div class="chip-wrap">
+              ${g.tools.map(t => `
+                <span class="chip" style="background:${color}15;border:1px solid ${color}30">${t}</span>
+              `).join('')}
+            </div>
+          </div>`;
+      }).join('')}
+    </div>
+    <div class="spotlight-section">
+      <div class="spotlight-title">★ Spotlight Tools — Must Try</div>
+      <div class="spotlight-grid">
+        ${spotlightTools.map(t => `
+          <div class="spotlight-card">
+            <div class="spotlight-name">${t.name}</div>
+            <div class="spotlight-desc">${t.desc}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+function selectPhase(id) {
+  activePhaseId = id;
+  const p = getPhase(id);
+  setActiveColor(p.color);
+  renderSidebar();
+  renderTopics();
+  renderToolsPanel();
+}
+
+function setView(v) {
+  currentView = v;
+  const roadmapEl = document.getElementById('content-wrap');
+  const allToolsEl = document.getElementById('all-tools-view');
+  const sidebarEl = document.getElementById('sidebar');
+  const tabs = document.querySelectorAll('.view-tab');
+  tabs.forEach((t,i) => t.classList.toggle('active', (i===0 && v==='roadmap') || (i===1 && v==='tools')));
+
+  if(v === 'roadmap') {
+    roadmapEl.style.display = 'flex';
+    allToolsEl.classList.remove('visible');
+    sidebarEl.style.display = 'block';
+  } else {
+    roadmapEl.style.display = 'none';
+    allToolsEl.classList.add('visible');
+    sidebarEl.style.display = 'none';
+    renderAllTools();
+  }
+}
+
+// Initial render
+selectPhase('llm-core');
+</script>
+</body>
+</html>
