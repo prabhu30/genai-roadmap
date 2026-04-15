@@ -63,47 +63,92 @@
 
   /* ── Header ── */
   #header {
-    padding: 22px 32px 16px;
+    padding: 16px 24px 14px;
     border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 16px;
+    align-items: center;
+    gap: 12px;
     flex-wrap: wrap;
     background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
     background-size: 24px 24px;
     flex-shrink: 0;
   }
+  .header-left { min-width: 0; flex: 1; }
   #header h1 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(18px, 2.5vw, 28px);
+    font-size: clamp(15px, 2.2vw, 26px);
     font-weight: 700;
     letter-spacing: -0.5px;
     color: var(--heading);
     line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   #header h1 span { color: var(--active-color, #38BDF8); }
-  #header p { font-size: 10px; letter-spacing: 3px; color: var(--text5); margin-top: 5px; text-transform: uppercase; }
-  .view-tabs { display: flex; gap: 3px; background: var(--tabs-bg); padding: 3px; border-radius: 7px; border: 1px solid var(--border); align-self: flex-start; }
+  #header p {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--text5);
+    margin-top: 4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .header-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+  }
+  .view-tabs {
+    display: flex;
+    gap: 3px;
+    background: var(--tabs-bg);
+    padding: 3px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
   .view-tab {
-    cursor: pointer; padding: 7px 16px; font-size: 10px; letter-spacing: 2px;
-    text-transform: uppercase; border-radius: 4px; border: none; background: transparent;
-    color: var(--text4); font-family: 'IBM Plex Mono', monospace; transition: all .2s;
+    cursor: pointer;
+    padding: 6px 12px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: none;
+    background: transparent;
+    color: var(--text4);
+    font-family: 'IBM Plex Mono', monospace;
+    transition: all .2s;
+    white-space: nowrap;
   }
   .view-tab.active { color: #060A10; background: var(--active-color, #38BDF8); }
 
   /* ── Layout ── */
-  #app { flex: 1; display: flex; overflow: hidden; }
+  #app { flex: 1; display: flex; overflow: hidden; min-height: 0; }
 
   /* ── Sidebar ── */
   #sidebar {
-    width: 210px; flex-shrink: 0; overflow-y: auto;
-    background: var(--bg2); border-right: 1px solid var(--border);
+    width: 210px;
+    flex-shrink: 0;
+    overflow-y: auto;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
     padding: 14px 10px;
   }
   .phase-pill {
-    padding: 9px 10px; border-radius: 6px; margin-bottom: 3px;
-    cursor: pointer; transition: all .2s; border: 1px solid transparent;
+    padding: 9px 10px;
+    border-radius: 6px;
+    margin-bottom: 3px;
+    cursor: pointer;
+    transition: all .2s;
+    border: 1px solid transparent;
     opacity: 0.45;
   }
   .phase-pill:hover { opacity: 0.75; }
@@ -114,42 +159,108 @@
   .phase-name { font-size: 10px; font-weight: 500; color: var(--text3); }
   .phase-pill.active .phase-name { color: var(--heading); }
 
+  /* ── Mobile Phase Strip ── */
+  #mobile-phase-strip {
+    display: none;
+    overflow-x: auto;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 12px;
+    gap: 6px;
+    flex-shrink: 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  #mobile-phase-strip::-webkit-scrollbar { display: none; }
+  .mobile-phase-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    cursor: pointer;
+    transition: all .2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .mobile-phase-chip.active {
+    color: #060A10;
+  }
+  .mobile-phase-chip-icon { font-size: 12px; }
+  .mobile-phase-chip-label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; }
+
   /* ── Content area ── */
-  #content-wrap { flex: 1; display: flex; overflow: hidden; }
+  #content-wrap { flex: 1; display: flex; overflow: hidden; min-width: 0; }
 
   /* ── Topics panel ── */
   #topics {
-    flex: 1; overflow-y: auto; padding: 24px 28px;
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 28px;
     animation: fadeIn .3s ease;
+    min-width: 0;
   }
   @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
   .phase-header { margin-bottom: 20px; }
   .phase-header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
   .phase-big-icon { font-size: 18px; }
-  .phase-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(15px, 2vw, 20px); font-weight: 700; color: var(--heading); }
+  .phase-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(14px, 2vw, 20px);
+    font-weight: 700;
+    color: var(--heading);
+  }
   .phase-sub { font-size: 11px; color: var(--text4); margin-top: 2px; }
   .phase-divider { height: 2px; border-radius: 1px; margin-top: 10px; }
 
-  .sections-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
-  .section-card {
-    background: var(--bg3); border: 1px solid var(--border);
-    border-radius: 8px; padding: 16px;
+  .sections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 14px;
   }
-  .section-title { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; margin-bottom: 10px; }
-  .topic-item { display: flex; gap: 7px; padding: 4px 0; font-size: 11px; color: var(--text2); line-height: 1.5; }
+  .section-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .section-title {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .topic-item {
+    display: flex;
+    gap: 7px;
+    padding: 4px 0;
+    font-size: 11px;
+    color: var(--text2);
+    line-height: 1.5;
+  }
   .topic-item:not(:last-child) { border-bottom: 1px solid var(--border); }
   .topic-arrow { flex-shrink: 0; opacity: 0.65; font-style: normal; }
 
   /* ── Tools panel ── */
   #tools-panel {
-    width: 230px; flex-shrink: 0; overflow-y: auto;
-    padding: 24px 18px; background: var(--bg4);
+    width: 230px;
+    flex-shrink: 0;
+    overflow-y: auto;
+    padding: 24px 18px;
+    background: var(--bg4);
     border-left: 1px solid var(--border);
   }
   .panel-label { font-size: 9px; letter-spacing: 3px; color: var(--text5); text-transform: uppercase; margin-bottom: 14px; }
   .tool-card {
-    background: var(--bg3); border: 1px solid var(--border);
-    border-radius: 6px; padding: 11px 13px; margin-bottom: 7px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 11px 13px;
+    margin-bottom: 7px;
     transition: transform .2s, box-shadow .2s;
   }
   .tool-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,.4); }
@@ -157,7 +268,9 @@
   .tool-tag { font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; opacity: .65; }
 
   .phase-stats {
-    border-radius: 8px; padding: 13px; margin-top: 18px;
+    border-radius: 8px;
+    padding: 13px;
+    margin-top: 18px;
   }
   .stats-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 7px; font-weight: 500; }
   .stats-val { font-size: 10px; color: var(--text3); line-height: 1.9; }
@@ -170,8 +283,79 @@
   .jump-text { font-size: 9px; color: var(--text4); }
   .jump-item.active .jump-text { color: inherit; }
 
+  /* ── Mobile Tools Drawer ── */
+  #mobile-tools-toggle {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 16px;
+    z-index: 100;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    border-radius: 50px;
+    padding: 10px 16px;
+    font-size: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--text2);
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    align-items: center;
+    gap: 6px;
+    transition: all .2s;
+  }
+  #mobile-tools-toggle:hover { border-color: var(--active-color, #38BDF8); }
+
+  #tools-drawer-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 200;
+    backdrop-filter: blur(2px);
+  }
+  #tools-drawer-overlay.open { display: block; }
+
+  #tools-drawer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 201;
+    background: var(--bg4);
+    border-top: 1px solid var(--border);
+    border-radius: 16px 16px 0 0;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 20px 20px 32px;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  #tools-drawer.open { transform: translateY(0); }
+  .drawer-handle {
+    width: 36px;
+    height: 4px;
+    background: var(--border2);
+    border-radius: 2px;
+    margin: 0 auto 18px;
+  }
+  .drawer-title { font-size: 9px; letter-spacing: 3px; color: var(--text5); text-transform: uppercase; margin-bottom: 14px; }
+  .drawer-tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .drawer-stats {
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .drawer-stat-item { font-size: 11px; color: var(--text3); }
+
   /* ── All Tools view ── */
-  #all-tools-view { display: none; overflow-y: auto; padding: 28px 32px; flex: 1; }
+  #all-tools-view { display: none; overflow-y: auto; padding: 24px 24px; flex: 1; }
   #all-tools-view.visible { display: block; }
   .all-tools-header { margin-bottom: 24px; }
   .all-tools-title { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
@@ -194,59 +378,39 @@
   .spotlight-desc { font-size: 10px; color: var(--text4); }
 
   /* ── Light mode color overrides ── */
-  html:not([data-theme="dark"]) .tool-tag {
-    opacity: 1;
-    color: var(--text3) !important;
-  }
-  html:not([data-theme="dark"]) .phase-num {
-    opacity: 1;
-  }
-  html:not([data-theme="dark"]) .phase-pill {
-    opacity: 0.6;
-  }
-  html:not([data-theme="dark"]) .phase-pill:hover {
-    opacity: 0.85;
-  }
-  html:not([data-theme="dark"]) .phase-pill.active {
-    opacity: 1;
-  }
-  html:not([data-theme="dark"]) .topic-arrow {
-    opacity: 0.85;
-  }
-  html:not([data-theme="dark"]) .jump-item {
-    opacity: 0.55;
-  }
-  html:not([data-theme="dark"]) .jump-item:hover {
-    opacity: 0.8;
-  }
-  html:not([data-theme="dark"]) .jump-item.active {
-    opacity: 1;
-  }
-  html:not([data-theme="dark"]) .jump-text {
-    color: var(--text3);
-  }
-  html:not([data-theme="dark"]) .panel-label {
-    color: var(--text3);
-  }
-  html:not([data-theme="dark"]) .phase-sub {
-    color: var(--text3);
-  }
-  html:not([data-theme="dark"]) .stats-val {
-    color: var(--text3);
-  }
-  html:not([data-theme="dark"]) .spotlight-desc {
-    color: var(--text3);
-  }
-  html:not([data-theme="dark"]) .all-tools-sub {
-    color: var(--text3);
-  }
+  html:not([data-theme="dark"]) .tool-tag { opacity: 1; color: var(--text3) !important; }
+  html:not([data-theme="dark"]) .phase-num { opacity: 1; }
+  html:not([data-theme="dark"]) .phase-pill { opacity: 0.6; }
+  html:not([data-theme="dark"]) .phase-pill:hover { opacity: 0.85; }
+  html:not([data-theme="dark"]) .phase-pill.active { opacity: 1; }
+  html:not([data-theme="dark"]) .topic-arrow { opacity: 0.85; }
+  html:not([data-theme="dark"]) .jump-item { opacity: 0.55; }
+  html:not([data-theme="dark"]) .jump-item:hover { opacity: 0.8; }
+  html:not([data-theme="dark"]) .jump-item.active { opacity: 1; }
+  html:not([data-theme="dark"]) .jump-text { color: var(--text3); }
+  html:not([data-theme="dark"]) .panel-label { color: var(--text3); }
+  html:not([data-theme="dark"]) .phase-sub { color: var(--text3); }
+  html:not([data-theme="dark"]) .stats-val { color: var(--text3); }
+  html:not([data-theme="dark"]) .spotlight-desc { color: var(--text3); }
+  html:not([data-theme="dark"]) .all-tools-sub { color: var(--text3); }
 
   /* ── Theme Toggle ── */
   #theme-toggle {
-    cursor: pointer; border: 1px solid var(--border2); background: var(--bg3);
-    border-radius: 20px; padding: 6px 14px; font-size: 11px; font-family: 'IBM Plex Mono', monospace;
-    color: var(--text3); display: flex; align-items: center; gap: 7px;
-    transition: all .2s; align-self: flex-start; white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--text3);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: all .2s;
+    align-self: flex-start;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   #theme-toggle:hover { border-color: var(--active-color, #38BDF8); color: var(--active-color, #38BDF8); }
   #theme-toggle .toggle-track {
@@ -260,16 +424,82 @@
   }
   html[data-theme="dark"] #theme-toggle .toggle-knob { transform: translateX(13px); }
 
-  /* ── Responsive ── */
-  @media (max-width: 768px) {
-    #sidebar { width: 52px; }
-    .phase-name, .phase-num { display: none; }
-    #tools-panel { width: 180px; }
-    body { overflow: auto; }
-    #app { flex-direction: column; overflow: auto; height: auto; }
-    #content-wrap { flex-direction: column; overflow: visible; }
-    #topics { overflow: visible; }
-    #tools-panel { width: 100%; border-left: none; border-top: 1px solid var(--border); }
+  /* ── Tablet 768px–1024px ── */
+  @media (max-width: 1024px) and (min-width: 641px) {
+    #sidebar { width: 160px; }
+    #tools-panel { width: 200px; }
+    #topics { padding: 18px 20px; }
+    .sections-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  }
+
+  /* ── Mobile: ≤640px ── */
+  @media (max-width: 640px) {
+    body { overflow: hidden; height: 100vh; }
+
+    #header {
+      padding: 12px 16px 10px;
+      gap: 8px;
+    }
+    #header p { display: none; }
+    #header h1 { font-size: 14px; letter-spacing: -0.3px; }
+
+    .header-controls { gap: 6px; }
+    .view-tab { padding: 5px 9px; font-size: 9px; letter-spacing: 1px; }
+
+    #theme-toggle { padding: 5px 9px; font-size: 10px; gap: 5px; }
+    #theme-toggle .toggle-track { width: 22px; height: 12px; }
+    #theme-toggle .toggle-knob { width: 8px; height: 8px; }
+    html[data-theme="dark"] #theme-toggle .toggle-knob { transform: translateX(10px); }
+    .toggle-label-text { display: none; }
+
+    /* Hide desktop sidebar */
+    #sidebar { display: none !important; }
+
+    /* Show mobile phase strip */
+    #mobile-phase-strip { display: flex; }
+
+    /* Full-width content */
+    #app { flex-direction: column; overflow: hidden; }
+    #content-wrap { flex: 1; display: flex; overflow: hidden; min-height: 0; }
+
+    /* Topics takes full width */
+    #topics {
+      flex: 1;
+      padding: 14px 14px 80px;
+      overflow-y: auto;
+      min-width: 0;
+    }
+
+    .phase-header { margin-bottom: 14px; }
+    .phase-title { font-size: 15px; }
+    .phase-sub { font-size: 10px; }
+
+    .sections-grid { grid-template-columns: 1fr; gap: 10px; }
+    .section-card { padding: 12px; }
+    .section-title { font-size: 8px; margin-bottom: 8px; }
+    .topic-item { font-size: 10.5px; padding: 5px 0; }
+
+    /* Hide desktop tools panel */
+    #tools-panel { display: none !important; }
+
+    /* Show mobile tools toggle button */
+    #mobile-tools-toggle { display: flex; }
+
+    /* All tools view */
+    #all-tools-view { padding: 16px 14px 80px; }
+    .all-tools-title { font-size: 16px; }
+    .tools-grid { grid-template-columns: 1fr; gap: 12px; }
+    .spotlight-grid { grid-template-columns: 1fr 1fr; }
+    .spotlight-section { padding: 16px; }
+  }
+
+  /* ── Very small: ≤380px ── */
+  @media (max-width: 380px) {
+    #header h1 { font-size: 12px; }
+    .view-tab { padding: 4px 7px; font-size: 8px; letter-spacing: 0.5px; }
+    .mobile-phase-chip-label { display: none; }
+    .mobile-phase-chip { padding: 5px 8px; }
+    .spotlight-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -277,25 +507,28 @@
 
 <!-- Header -->
 <div id="header">
-  <div>
+  <div class="header-left">
     <h1>GenAI Engineer <span>·</span> Full Roadmap</h1>
     <p>3+ years experience &nbsp;·&nbsp; 9 phases &nbsp;·&nbsp; 36 topics &nbsp;·&nbsp; 60+ tools</p>
   </div>
-  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+  <div class="header-controls">
     <div class="view-tabs">
       <button class="view-tab active" onclick="setView('roadmap')">⬡ Roadmap</button>
       <button class="view-tab" onclick="setView('tools')">◈ All Tools</button>
     </div>
     <button id="theme-toggle" onclick="toggleTheme()">
-      <span id="theme-label">☀ Light</span>
+      <span id="theme-label" class="toggle-label-text">☀ Light</span>
       <div class="toggle-track"><div class="toggle-knob"></div></div>
     </button>
   </div>
 </div>
 
+<!-- Mobile Phase Strip (shown on mobile only) -->
+<div id="mobile-phase-strip"></div>
+
 <div id="app">
 
-  <!-- Sidebar -->
+  <!-- Desktop Sidebar -->
   <div id="sidebar"></div>
 
   <!-- Roadmap content -->
@@ -307,6 +540,20 @@
   <!-- All Tools view -->
   <div id="all-tools-view"></div>
 
+</div>
+
+<!-- Mobile Tools FAB -->
+<button id="mobile-tools-toggle" onclick="openToolsDrawer()">
+  <span>◈</span> Tools
+</button>
+
+<!-- Tools Drawer Overlay -->
+<div id="tools-drawer-overlay" onclick="closeToolsDrawer()"></div>
+
+<!-- Tools Drawer -->
+<div id="tools-drawer">
+  <div class="drawer-handle"></div>
+  <div id="drawer-content"></div>
 </div>
 
 <script>
@@ -816,6 +1063,8 @@ function setActiveColor(color) {
   document.querySelector('#header h1 span').style.color = color;
 }
 
+function isMobile() { return window.innerWidth <= 640; }
+
 function renderSidebar() {
   const sb = document.getElementById('sidebar');
   sb.innerHTML = roadmap.map(p => `
@@ -830,6 +1079,22 @@ function renderSidebar() {
         </div>
       </div>
     </div>`).join('');
+}
+
+function renderMobilePhaseStrip() {
+  const strip = document.getElementById('mobile-phase-strip');
+  strip.innerHTML = roadmap.map(p => `
+    <div class="mobile-phase-chip ${p.id===activePhaseId?'active':''}"
+         style="${p.id===activePhaseId?`background:${p.color};border-color:${p.color}`:''}"
+         onclick="selectPhase('${p.id}')">
+      <span class="mobile-phase-chip-icon">${p.icon}</span>
+      <span class="mobile-phase-chip-label">${p.title}</span>
+    </div>`).join('');
+  // scroll active chip into view
+  const activeChip = strip.querySelector('.active');
+  if(activeChip) {
+    setTimeout(() => activeChip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }), 50);
+  }
 }
 
 function renderTopics() {
@@ -857,7 +1122,6 @@ function renderTopics() {
             </div>`).join('')}
         </div>`).join('')}
     </div>`;
-  // re-trigger animation
   el.style.animation = 'none';
   el.offsetHeight;
   el.style.animation = 'fadeIn .3s ease';
@@ -889,6 +1153,37 @@ function renderToolsPanel() {
         <div class="jump-bar" style="background:${r.color}"></div>
         <span class="jump-text">${r.title}</span>
       </div>`).join('')}`;
+}
+
+function renderDrawerContent() {
+  const p = getPhase(activePhaseId);
+  const totalTopics = p.sections.reduce((a,s) => a+s.items.length, 0);
+  const el = document.getElementById('drawer-content');
+  el.innerHTML = `
+    <div class="drawer-title">Key Tools — ${p.title}</div>
+    <div class="drawer-tools-grid">
+      ${p.tools.map(t => `
+        <div class="tool-card" style="border-left:3px solid ${p.color}">
+          <div class="tool-name">${t.name}</div>
+          <div class="tool-tag" style="color:${p.color}">${t.tag}</div>
+        </div>`).join('')}
+    </div>
+    <div class="drawer-stats" style="background:${p.color}0F;border:1px solid ${p.color}25">
+      <span class="drawer-stat-item">${totalTopics} topics</span>
+      <span class="drawer-stat-item">${p.sections.length} categories</span>
+      <span class="drawer-stat-item">${p.tools.length} key tools</span>
+    </div>`;
+}
+
+function openToolsDrawer() {
+  renderDrawerContent();
+  document.getElementById('tools-drawer-overlay').classList.add('open');
+  document.getElementById('tools-drawer').classList.add('open');
+}
+
+function closeToolsDrawer() {
+  document.getElementById('tools-drawer-overlay').classList.remove('open');
+  document.getElementById('tools-drawer').classList.remove('open');
 }
 
 function renderAllTools() {
@@ -929,8 +1224,14 @@ function selectPhase(id) {
   const p = getPhase(id);
   setActiveColor(p.color);
   renderSidebar();
+  renderMobilePhaseStrip();
   renderTopics();
   renderToolsPanel();
+  // update mobile tools toggle color
+  const fab = document.getElementById('mobile-tools-toggle');
+  if(fab) fab.style.borderColor = p.color + '60';
+  // close drawer if open
+  closeToolsDrawer();
 }
 
 function setView(v) {
@@ -938,17 +1239,22 @@ function setView(v) {
   const roadmapEl = document.getElementById('content-wrap');
   const allToolsEl = document.getElementById('all-tools-view');
   const sidebarEl = document.getElementById('sidebar');
+  const mobileStrip = document.getElementById('mobile-phase-strip');
+  const fab = document.getElementById('mobile-tools-toggle');
   const tabs = document.querySelectorAll('.view-tab');
+
   tabs.forEach((t,i) => t.classList.toggle('active', (i===0 && v==='roadmap') || (i===1 && v==='tools')));
 
   if(v === 'roadmap') {
     roadmapEl.style.display = 'flex';
     allToolsEl.classList.remove('visible');
-    sidebarEl.style.display = 'block';
+    if(!isMobile()) sidebarEl.style.display = 'block';
+    if(isMobile()) { mobileStrip.style.display = 'flex'; fab.style.display = 'flex'; }
   } else {
     roadmapEl.style.display = 'none';
     allToolsEl.classList.add('visible');
     sidebarEl.style.display = 'none';
+    if(isMobile()) { mobileStrip.style.display = 'none'; fab.style.display = 'none'; }
     renderAllTools();
   }
 }
@@ -957,10 +1263,24 @@ function toggleTheme() {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
   document.getElementById('theme-label').textContent = isDark ? '☀ Light' : '☾ Dark';
-  // Re-render so JS-injected inline borders pick up new color
   renderTopics();
   renderToolsPanel();
 }
+
+// Handle resize: swap between mobile/desktop modes
+let lastMobile = isMobile();
+window.addEventListener('resize', () => {
+  const nowMobile = isMobile();
+  if(nowMobile !== lastMobile) {
+    lastMobile = nowMobile;
+    if(currentView === 'roadmap') {
+      document.getElementById('sidebar').style.display = nowMobile ? 'none' : 'block';
+      document.getElementById('mobile-phase-strip').style.display = nowMobile ? 'flex' : 'none';
+      document.getElementById('mobile-tools-toggle').style.display = nowMobile ? 'flex' : 'none';
+      document.getElementById('tools-panel').style.display = nowMobile ? 'none' : 'block';
+    }
+  }
+});
 
 // Initial render
 selectPhase('llm-core');
